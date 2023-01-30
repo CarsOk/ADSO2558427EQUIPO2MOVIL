@@ -54,10 +54,10 @@ Primero se compra el producto al proveedor, luego los vendedores se encargan de 
 
 **5. Departamentos en la empresa.**
 
-•	D. de ventas 
-•	D. de inventario
-•	D. de cobro 
-•	D. de finanzas 
+  - D. de ventas 
+  - D. de inventario
+  - D. de cobro 
+  - D. de finanzas 
 
 
 ## Información sobre la empresa:

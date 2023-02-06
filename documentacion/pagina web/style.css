@@ -1,0 +1,271 @@
+*{
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 480px) {
+    main{
+        border: 1px solid brown;
+        height: auto;
+        width: auto;
+    }
+    .menu{
+        align-items: center;
+        background-color: blue;
+        display: flex;
+        justify-content: space-between;
+        height: 70px;
+        list-style: none;
+        width: auto;
+    }
+    .logo{
+        width: 50px;
+        padding-left: 10px;
+    }
+    .lista {
+        display: none;
+    }
+    .hamburguesa{
+        width: 45px;
+        padding-right: 10px;
+    }
+    .contenedorPrincipal{
+        background-color: #910DFF;
+        display: flex;
+        flex-direction: column;
+        min-height: 350px;
+        align-items: center;
+    }
+    .contenedorFotoEquipo {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin: 15px 0px 15px 0px;
+
+    }
+
+    .imagenEquipo{
+        border-radius: 20px 20px 20px 20px;
+        width: 80%;
+    }
+
+    .introduccion {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .raya {
+        background-color: #fff;
+        border-radius: 18px;
+        height: 4px;
+        margin-bottom: 20px;
+        margin-top: 10px;
+        width: 80%;
+    }
+
+    .tituloIntroduccion{
+        font-size: 100%;
+        text-align: center;
+    }
+
+    .textoIntroduccion{
+        font-size: 85%;
+        width: 80%;
+    }
+
+    .proyectos {
+        align-items: center;
+        background-color: #0C46E8;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .articulo {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .contenedorIcono {
+        height: 150px;
+        margin: auto;
+        width: 100%;
+        text-align: center;
+    }
+    .icono {
+        height: 80%;
+        margin: 10% 0% 10% 0%;
+    }
+
+    .articuloTitulo {
+        font-size: 100%;
+        padding: 10px 0px 10px 0px;
+    }
+
+    .articuloTexto2 {
+        font-size: 85%;
+        width: 80%;
+    }
+
+    .articuloTexto {
+        font-size: 85%;
+        width: 80%; 
+    }
+
+    .boton {
+        background-color: #fff;
+        border-radius: 10px 10px 10px 10px;
+        color: black;
+        font-size: 80%;
+        font-weight: bold;
+        margin: 10px;
+        padding: 10px 15px 10px 15px;
+        text-decoration: none;
+        width: 30%;
+    }
+
+    footer {
+        align-items: center;
+        background-color: #480CE8;
+        display: flex;
+        min-height: 80px;
+        justify-content: center;
+    }
+    footer p {
+        font-size: 60%;
+        font-weight: bold;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 2560px){
+
+    main{
+        box-shadow: 5px 5px 40px black;
+        width: 1000px;
+        height: auto;
+        margin: auto;
+    }
+
+    .menu{
+        align-items: center;    
+        background-color: Blue;
+        display: flex;
+        font-weight: bold;
+        justify-content: space-between;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+    .dirigir{
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+    }
+    .logo {
+        width: 70px;
+        padding-left: 20px;
+    }
+    .lista {
+        display: flex;
+        list-style: none;
+        width: 500px;
+        justify-content: space-around;
+        order: 3;
+    }
+    .hamburguesa {
+        display: none;
+    }
+    .contenedorPrincipal {
+        align-items: center;
+        justify-content: space-between;
+        background-color: #0C46E8;
+        display:flex;
+        height: 460px;
+        margin-top: 25px;
+        padding: 0px 20px 0px 20px;
+
+    }
+    .introduccion {
+        display: flex;
+        flex-direction: column;
+        height: 400px;
+        width: 400px;
+    }
+    .imagenEquipo {
+        height: 400px;
+        border-radius: 30px 30px 30px 30px;
+    }
+    .tituloIntroduccion {
+        color: #fff;
+        font-size: 30px;
+    }
+    .raya {
+        background-color: #fff;
+        border-radius: 18px;
+        height: 8px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        width: 300px;
+    }
+    .textoIntroduccion {
+        color: #fff;
+        font-size: 16px;
+        text-align: justify;
+        width: 300px;
+    }
+    .proyectos {
+        display: flex;
+        height: 420px;
+        justify-content: space-between;
+        margin: 25px 40px 0px 40px;
+    }
+    .articulo {
+        align-items: center;
+        background-color: #910DFF;
+        border-radius: 15px 15px 15px;
+        display: flex;
+        flex-direction: column;
+        height: 420px;
+        width: 415px;
+    }
+    .icono{
+        padding: 20px 0px 10px 0px;
+        height: 200px;
+    }
+    .boton{ 
+        background-color: blue;
+        padding: 10px 15px 10px 15px;
+        color: white;
+        text-decoration: none;  
+        border-radius: 10px 10px 10px 10px;
+    }
+    .articuloTitulo {
+        font-size: 20px;
+    }
+    .articuloTexto{
+        margin: 10px 0px 10px 0px;
+        text-align: left;
+        width: 270px;
+    }
+    .articuloTexto2{
+        margin: 10px 0px 47px 0px;
+        text-align: left;
+        width: 270px;
+    }
+    footer {
+        align-items: center;
+        background-color: #480CE8;
+        display: flex;
+        height: 100px;
+        justify-content: center;
+        margin-top: 25px;
+    }
+    footer p {
+        font-weight: bold;
+    }
+}

@@ -7,7 +7,6 @@
 
 @media screen and (max-width: 480px) {
     main{
-        border: 1px solid brown;
         height: auto;
         width: auto;
     }
@@ -32,10 +31,10 @@
         padding-right: 10px;
     }
     .contenedorPrincipal{
-        background-color: #910DFF;
+        background-color: #eeeeee;
         display: flex;
         flex-direction: column;
-        min-height: 350px;
+        min-height: 360px;
         align-items: center;
     }
     .contenedorFotoEquipo {
@@ -59,7 +58,7 @@
     }
 
     .raya {
-        background-color: #fff;
+        background-color: #000;
         border-radius: 18px;
         height: 4px;
         margin-bottom: 20px;
@@ -68,11 +67,13 @@
     }
 
     .tituloIntroduccion{
+        color: #000;
         font-size: 100%;
         text-align: center;
     }
 
     .textoIntroduccion{
+        color: #000;
         font-size: 85%;
         width: 80%;
     }
@@ -126,6 +127,7 @@
         font-weight: bold;
         margin: 10px;
         padding: 10px 15px 10px 15px;
+        text-align: center;
         text-decoration: none;
         width: 30%;
     }

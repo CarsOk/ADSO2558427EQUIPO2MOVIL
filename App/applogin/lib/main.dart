@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'login_screen.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
 }
 
 class Splash extends StatefulWidget {
-  const Splash({Key? key});
+  const Splash({Key? key}) : super(key: key);
 
   @override
   State<Splash> createState() => _SplashState();
@@ -31,8 +33,8 @@ class _SplashState extends State<Splash> {
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const Home()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
       },
     );
   }
@@ -53,12 +55,16 @@ class _SplashState extends State<Splash> {
               height: 30,
             ),
             if (defaultTargetPlatform == TargetPlatform.windows)
-              const CupertinoActivityIndicator(
-                radius: 20,
+              const Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF807CB9)),
+                ),
               )
             else
-              const CircularProgressIndicator(
-                color: Colors.red,
+              const Center(
+                child: CupertinoActivityIndicator(
+                  radius: 20,
+                ),
               )
           ],
         ),
@@ -68,15 +74,12 @@ class _SplashState extends State<Splash> {
 }
 
 class Home extends StatelessWidget {
-  const Home({Key? key});
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 9, 75, 45),
-        title: const Text('welcome in my shoope'),
-      ),
+      appBar: AppBar(),
     );
   }
 }

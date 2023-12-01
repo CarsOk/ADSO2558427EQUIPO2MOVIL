@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "392820006582",
+    "project_id": "creditos3a-3d880",
+    "storage_bucket": "creditos3a-3d880.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392820006582:android:5072346a922e25504bd017",
+        "android_client_info": {
+          "package_name": "com.example.creditos3a"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSg9nQrc3RtRHskMNh2ZpizJ02rU_CJ84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

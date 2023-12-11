@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../widgets/widgets.dart';
 import 'package:http/http.dart' as http;
 
 class ProductPage extends StatefulWidget {
@@ -15,34 +16,71 @@ class _ProductPageState extends State<ProductPage> {
   @override
   void initState() {
     super.initState();
-    cargarProductos();
+    _fetchProductos();
   }
 
-  Future<void> cargarProductos() async {
+  Future<void> _fetchProductos() async {
     try {
-      List<Producto> listaProductos = await fetchProductos();
-      setState(() {
-        productos = listaProductos;
-      });
+      final response = await tomarProductos();
 
-      // Imprimir los productos en la consola para verificar
-      print('Productos cargados correctamente:');
-      for (var producto in productos) {
-        print(
-            'ID: ${producto.id}, Nombre: ${producto.nombre}, Descripción: ${producto.descripcion}, '
-            'Precio: ${producto.precio}, Categoría ID: ${producto.categoriaId}, Avatar: ${producto.avatar}');
+      if (response.statusCode == 200) {
+        List<dynamic> data = json.decode(response.body);
+        setState(() {
+          productos =
+              data.map((producto) => Producto.fromJson(producto)).toList();
+        });
+      } else {
+        throw ServerException(
+            'Error al cargar los productos: ${response.statusCode}');
       }
-    } catch (e) {
-      print('Error al cargar productos: $e');
+    } on NetworkException catch (error) {
+      ('Error de red: $error');
+      _showErrorDialog('Error de red. Verifica tu conexión a Internet.');
+    } on ServerException catch (error) {
+      ('Error del servidor: $error');
+      _showErrorDialog(
+          'Error del servidor. Por favor, intenta nuevamente más tarde.');
+    } catch (error) {
+      ('Error desconocido: $error');
+      _showErrorDialog('Ocurrió un error. Por favor, intenta nuevamente.');
     }
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mis Productos'),
-        backgroundColor: Colors.transparent,
+        title: const Text('Creditos3A'),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -56,54 +94,81 @@ class _ProductPageState extends State<ProductPage> {
           ),
         ),
       ),
-      body: Center(
-        child: productos.isEmpty
-            ? const CircularProgressIndicator()
-            : ListView.builder(
-                itemCount: productos.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(productos[index].nombre),
-                    subtitle: Text(productos[index].descripcion),
-                    // Muestra el precio y la categoría ID
-                    trailing: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('Precio: ${productos[index].precio}'),
-                        Text('Categoría ID: ${productos[index].categoriaId}'),
-                      ],
+      body: ListView.builder(
+        itemCount: productos.length,
+        itemBuilder: (context, index) {
+          final producto = productos[index];
+          return Card(
+            margin: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.network(producto.avatarUrl,
+                    fit: BoxFit.cover, height: 200.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    producto.nombre,
+                    style: const TextStyle(
+                        fontSize: 20.0, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(producto.descripcion),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Precio: \$${producto.precio.toStringAsFixed(2)}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Cantidad: ${producto.cantidad}'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    producto.disponible
+                        ? 'Producto Disponible'
+                        : 'Producto No Disponible',
+                    style: TextStyle(
+                      color: producto.disponible ? Colors.green : Colors.red,
+                      fontWeight: FontWeight.bold,
                     ),
-                    // Muestra el avatar (imagen) si está disponible
-                    leading: productos[index].avatar != null
-                        ? CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(productos[index].avatar!),
-                          )
-                        : null,
-                    // Otros campos del producto que desees mostrar
-                  );
-                },
-              ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
+      drawer: const DrawerHome(),
     );
   }
+
+  void _showLogoutMenu(BuildContext context) {}
 }
 
 class Producto {
-  int id;
-  String nombre;
-  String descripcion;
-  double precio;
-  int categoriaId;
-  String? avatar; // Puede ser nulo
+  final int id;
+  final String nombre;
+  final String descripcion;
+  final bool disponible;
+  final String avatarUrl;
+  final int precio;
+  final int cantidad;
 
   Producto({
     required this.id,
     required this.nombre,
     required this.descripcion,
+    required this.disponible,
+    required this.avatarUrl,
     required this.precio,
-    required this.categoriaId,
-    this.avatar,
+    required this.cantidad,
   });
 
   factory Producto.fromJson(Map<String, dynamic> json) {
@@ -111,22 +176,33 @@ class Producto {
       id: json['id'],
       nombre: json['nombre'],
       descripcion: json['descripcion'],
-      precio: json['precio'].toDouble(),
-      categoriaId: json['categoria_id'],
-      avatar: json['avatar'],
+      disponible: json['disponible'],
+      avatarUrl: 'http://localhost:3000${json['avatar']['url']}',
+      precio: json['precio'],
+      cantidad: json['cantidad'],
     );
   }
 }
 
-Future<List<Producto>> fetchProductos() async {
-  final response = await http
-      .get(Uri.parse('http://0.0.0.0:3001/pages/categorias/productos.json'));
-  if (response.statusCode == 200) {
-    List<dynamic> data = json.decode(response.body)['productos'];
-    List<Producto> productos =
-        data.map((item) => Producto.fromJson(item)).toList();
-    return productos;
+Future<http.Response> tomarProductos() async {
+  final url = Uri.http('localhost:3000', '/api/v1/productos');
+  final respuestaApi = await http.get(url);
+
+  if (respuestaApi.statusCode == 200) {
+    return respuestaApi;
   } else {
-    throw Exception('Error al cargar productos');
+    throw ServerException('Error en la solicitud: ${respuestaApi.statusCode}');
   }
+}
+
+class NetworkException implements Exception {
+  final String message;
+
+  NetworkException(this.message);
+}
+
+class ServerException implements Exception {
+  final String message;
+
+  ServerException(this.message);
 }

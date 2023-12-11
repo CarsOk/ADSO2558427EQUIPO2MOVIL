@@ -14,46 +14,43 @@ class DrawerHome extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                  colors: [
-                 Colors.purple[900]!, 
+                colors: [
+                  Colors.purple[900]!,
                   Colors.deepPurple[300]!,
                 ],
               ),
             ),
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: 10),
                 Image(
-                  image: AssetImage('assets/LogoCreditos.jpg'),
+                  image: AssetImage('assets/images/LogoCreditos.jpg'),
                   height: 110,
                 ),
                 SizedBox(height: 10),
               ],
-            ),    
-          ),
-         ListTile(
-              title: const Text('Productos'),
-              leading: const Icon(Icons.people),
-              onTap: () {
-                Navigator.pushNamed(context, '/product');
-              },
             ),
+          ),
+          ListTile(
+            title: const Text('Productos'),
+            leading: const Icon(Icons.people),
+            onTap: () {
+              Navigator.pushNamed(context, '/product');
+            },
+          ),
           ListTile(
             title: const Text('My Account'),
             leading: const Icon(Icons.account_box_rounded),
-            onTap: () {
-              
-            },
+            onTap: () {},
           ),
           ListTile(
             title: const Text('Favourites'),
             leading: const Icon(Icons.favorite_outline),
             onTap: () {
-              // 
+              //
             },
           ),
-         
         ],
       ),
     );

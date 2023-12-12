@@ -14,6 +14,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  bool _obscurePassword = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,16 +33,14 @@ class _LoginScreenState extends State<LoginScreen> {
             children: <Widget>[
               Container(
                 width: 150,
-                height: 130,
+                height: 180,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF807CB9),
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: const Center(
-                  child: Icon(
-                    Icons.person,
-                    size: 140,
-                    color: Colors.white,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/icono.png',
+                    height: 140,
                   ),
                 ),
               ),
@@ -63,12 +63,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: TextFormField(
                   controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
+                  obscureText: _obscurePassword,
+                  decoration: InputDecoration(
                     labelText: 'Contraseña',
                     labelStyle: TextStyle(fontSize: 20, color: Colors.black45),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Color(0xFF807CB9)),
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
                     ),
                   ),
                 ),
@@ -83,31 +95,28 @@ class _LoginScreenState extends State<LoginScreen> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Por favor, ingrese los campos'),
-                        duration: Duration(seconds: 5),
+                        duration: Duration(seconds: 3),
                         backgroundColor: Color(0xFF807CB9),
                       ),
                     );
                     return;
                   }
-
                   if (email.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content:
                             Text('Por favor, ingrese su correo electrónico'),
-                        duration: Duration(seconds: 5),
+                        duration: Duration(seconds: 3),
                         backgroundColor: Color(0xFF807CB9),
                       ),
                     );
                     return;
                   }
-
-                  // Verifica la contraseña
                   if (password.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Por favor, ingrese su contraseña'),
-                        duration: Duration(seconds: 5),
+                        duration: Duration(seconds: 3),
                         backgroundColor: Color(0xFF807CB9),
                       ),
                     );
@@ -127,13 +136,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     );
                   } catch (e) {
-                    ('Error de inicio de sesión: $e');
+                    print('Error de inicio de sesión: $e');
                     String errorMessage =
                         'Error al iniciar sesión. Por favor, verifica tu correo y contraseña e inténtalo de nuevo.';
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(errorMessage),
-                        duration: const Duration(seconds: 5),
+                        duration: const Duration(seconds: 3),
                         backgroundColor: const Color(0xFF807CB9),
                       ),
                     );
@@ -144,9 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: const Text(
                   'Iniciar Sesión',
-                  style: TextStyle(
-                    fontSize: 22,
-                  ),
+                  style: TextStyle(fontSize: 22, color: Colors.white),
                 ),
               ),
             ],

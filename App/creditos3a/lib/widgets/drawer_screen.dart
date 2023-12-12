@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DrawerHome extends StatelessWidget {
   const DrawerHome({Key? key}) : super(key: key);
@@ -45,10 +46,18 @@ class DrawerHome extends StatelessWidget {
             onTap: () {},
           ),
           ListTile(
-            title: const Text('Favourites'),
-            leading: const Icon(Icons.favorite_outline),
-            onTap: () {
-              //
+            title: const Text('Cerrar sesión'),
+            leading: const Icon(Icons.exit_to_app),
+            onTap: () async {
+              // Acciones para "Sign Out"
+              try {
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(context).pop();
+                Navigator.pushNamed(context, '/login');
+              } catch (e) {
+                ("Error al cerrar sesión: $e");
+                // Manejar el error según sea necesario
+              }
             },
           ),
         ],

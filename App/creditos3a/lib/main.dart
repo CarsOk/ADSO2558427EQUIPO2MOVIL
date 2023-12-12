@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'pages/welcome_screen.dart';
 import 'pages/product_page.dart';
+import 'pages/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const WelcomeScreen(),
+        '/login': (context) => const LoginScreen(),
         '/product': (context) => const ProductPage(),
       },
     );

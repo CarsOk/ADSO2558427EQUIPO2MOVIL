@@ -34,14 +34,14 @@ class _ProductPageState extends State<ProductPage> {
             'Error al cargar los productos: ${response.statusCode}');
       }
     } on NetworkException catch (error) {
-      ('Error de red: $error');
+      print('Error de red: $error');
       _showErrorDialog('Error de red. Verifica tu conexión a Internet.');
     } on ServerException catch (error) {
-      ('Error del servidor: $error');
+      print('Error del servidor: $error');
       _showErrorDialog(
           'Error del servidor. Por favor, intenta nuevamente más tarde.');
     } catch (error) {
-      ('Error desconocido: $error');
+      print('Error desconocido: $error');
       _showErrorDialog('Ocurrió un error. Por favor, intenta nuevamente.');
     }
   }
@@ -94,7 +94,12 @@ class _ProductPageState extends State<ProductPage> {
           ),
         ),
       ),
-      body: ListView.builder(
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 8.0,
+          mainAxisSpacing: 8.0,
+        ),
         itemCount: productos.length,
         itemBuilder: (context, index) {
           final producto = productos[index];
@@ -103,14 +108,19 @@ class _ProductPageState extends State<ProductPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.network(producto.avatarUrl,
-                    fit: BoxFit.cover, height: 200.0),
+                Image.network(
+                  producto.avatarUrl,
+                  fit: BoxFit.cover,
+                  height: 200.0,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     producto.nombre,
                     style: const TextStyle(
-                        fontSize: 20.0, fontWeight: FontWeight.bold),
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 Padding(
@@ -149,7 +159,9 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
-  void _showLogoutMenu(BuildContext context) {}
+  void _showLogoutMenu(BuildContext context) {
+    // ... tu código existente ...
+  }
 }
 
 class Producto {
